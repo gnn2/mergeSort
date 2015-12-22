@@ -6,6 +6,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Random;
 
 public class GenerateData {
@@ -27,6 +28,28 @@ public class GenerateData {
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
+		}
+	}
+	/*
+	 * Wrýte logs for each of the called functýons
+	 * int k: number of streams
+	 * int bufferSize: sýze of the buffer
+	 * TODO: Explaýn all params !!!!
+	 */
+	public void writeLogs(String methodType, String jobType, int k, int bufferSize, double elapsedTime, long avgFileSize){
+		Charset charset = Charset.forName("UTF-8");
+		String path = "src/resources/logs.txt";
+		Path file = Paths.get(path);
+
+		// Method type;Job type;K steams;Elapsed time; Avg file size
+		try (BufferedWriter writer = Files.newBufferedWriter(file, charset, StandardOpenOption.APPEND)) {
+			writer.write(methodType + ";" + jobType + ";" + Integer.toString(k)
+						+ ";" + Integer.toString(bufferSize)
+						+ ";" + Double.toString(elapsedTime)
+						+ ";" + Long.toString(avgFileSize));
+			writer.newLine();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 }
