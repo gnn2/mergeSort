@@ -1,21 +1,23 @@
 package dbsa;
 
-import java.io.File;
-
 public class main_app {
 	public static void main(String[] args) {
 		// Define defaults
 		int bufferSize = 4;
-		long avgFileSize = 0;
-		long start = 0;
-		double seconds = 0;
-		int k = 10;
+		int k = 50;
+		
+		for(int i=25; i<=30; i++){ //k
+			for(int j=20; j<=20; j=j+10){  //bufferSize
+				k = i;
+				bufferSize= j;
+				IO_Test IO_T = new IO_Test();
+				IO_T.checkPerformance(k, bufferSize);
+			}
+		}
 
 		// Generate files
-		GenerateData gd = new GenerateData();
-		// gd.generateFilesToRead(k, 10000, "src/resources/read_from");
-		File f = new File("src/resources/read_from/generated_1.txt");
-		avgFileSize = f.length();
+		//GenerateData gd = new GenerateData();
+		//gd.generateFilesToRead(k, 100000, "src/resources/read_from");
 
 		// Read from the generated files
 		// IO_1 io1 = new IO_1();
@@ -44,39 +46,5 @@ public class main_app {
 
 		// Read from generated files and write to file
 		//io4.read_write_file("src/resources/read_from/generated_0.txt", "src/resources/write_to.txt",20);
-
-		/* READ WRITE from multýple fýles*/
-		IO_1 io1 = new IO_1();
-		start = System.nanoTime();
-		for (int i = 1; i <= k; i++) {
-			io1.read_from_file("src/resources/read_from/generated_" + Integer.toString(i) + ".txt");
-		}
-		seconds = (double)(System.nanoTime()-start) / 1000000000.0;
-		gd.writeLogs("io_1", "r", k, bufferSize, seconds, avgFileSize);
-
-		IO_2 io2 = new IO_2();
-		start = System.nanoTime();
-		for (int i = 1; i <= k; i++) {
-			io2.read_from_file("src/resources/read_from/generated_" + Integer.toString(i) + ".txt");
-		}
-		seconds = (double)(System.nanoTime()-start) / 1000000000.0;
-		gd.writeLogs("io_2", "r", k, bufferSize, seconds, avgFileSize);
-
-		IO_3 io3 = new IO_3();
-		start = System.nanoTime();
-		for (int i = 1; i <= k; i++) {
-			io3.read_from_file("src/resources/read_from/generated_" + Integer.toString(i) + ".txt", bufferSize);
-		}
-		seconds = (double)(System.nanoTime()-start) / 1000000000.0;
-		gd.writeLogs("io_3", "r", k, bufferSize, seconds, avgFileSize);
-
-		IO_4 io4 = new IO_4();
-		start = System.nanoTime();
-		for (int i = 1; i <= k; i++) {
-			io4.read_from_file("src/resources/read_from/generated_" + Integer.toString(i) + ".txt", bufferSize);
-		}
-		seconds = (double)(System.nanoTime()-start) / 1000000000.0;
-		gd.writeLogs("io_4", "r", k, bufferSize, seconds, avgFileSize);
-
 	}
 }
