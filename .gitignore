@@ -3,3 +3,4 @@
 # Exclude the automaticaly generated files
 *.txt
 *.data
+/bin/

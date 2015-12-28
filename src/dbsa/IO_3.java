@@ -39,7 +39,8 @@ public class IO_3 {
 			BufferedInputStream inbis = new BufferedInputStream( ins, bufferSize );
 			DataInputStream dis = new DataInputStream(inbis);
 
-			OutputStream outs = new FileOutputStream( new File(writeTo));
+			File out = new File(writeTo);
+			OutputStream outs = new FileOutputStream(out);
 			BufferedOutputStream outbos = new BufferedOutputStream( outs, bufferSize );
 			DataOutputStream dos = new DataOutputStream(outbos);
 
