@@ -1,70 +1,153 @@
+/**
+ * 
+ */
 package dbsa;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * @author Gabby
+ *
+ */
 public class GenerateData {
-	public GenerateData() {
-		
-	}
-	public void generateFilesToRead(int noOfFiles, int noOfRows, String path){
-		Charset charset = Charset.forName("UTF-8");
-
-		Random rand = new Random();
-		String current_val;
-
-		for (int i = 1; i <= noOfFiles; i++) { // Generate noOfFiles files
-			String new_file = path + "./generated_" + Integer.toString(i) + ".txt";
-			Path file = Paths.get(new_file);
-			try (BufferedWriter writer = Files.newBufferedWriter(file, charset)) {
-				for (int j = 1; j <= noOfRows; j++) { // Generate noOfRows per each file
-					current_val = Integer.toString(rand.nextInt(1000000000));
-					writer.write(current_val);
-					writer.newLine();
-				}
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-	}
-	/*
-	 * Wrýte logs for each of the called functýons
-	 * int k: number of streams
-	 * int bufferSize: sýze of the buffer
-	 * TODO: Explaýn all params !!!!
+	public static  Random intGenerator = new Random();
+	/**
+	 * generates random files using ProjectOutputStream
+	 * 
+	 * @param baseFileName
+	 * @param numFiles
+	 * @param maxLength
+	 * @return
 	 */
-	public void writeLogs(String methodType, String jobType, int k, int bufferSize, double elapsedTime, long avgFileSize){
-		Charset charset = Charset.forName("UTF-8");
-		String file = "./logs.txt";
-		Path path = Paths.get(file);
-
-		// Method type;Job type;K steams;Elapsed time; Avg file size
-		try  {
-			File f = new File(file);
-			if(!f.exists()){
-				OutputStream outs = new FileOutputStream( f);
-				DataOutputStream dos = new DataOutputStream(outs);
+	public static ArrayList<String> generateRandomType1(String baseFileName,
+			int numFiles, int maxLength) {
+		ArrayList<String> fileNames = new ArrayList<String>();
+		for (int i = 1; i <= numFiles; i++) {
+			String outputFile = baseFileName + Integer.toString(i) + ".txt";
+			ProjectOutputStream out = new ProjectOutputStream();
+			try {
+				out.create(outputFile);
+				fileNames.add(outputFile);
+				// for each int in int buffer
+				for (int x = 0; x < maxLength; x++) {
+					// Generate random ( unsorted ) int 0 -1000
+					int next = intGenerator.nextInt(1000);
+					// write int to data output stream
+					out.write(next);
+				}
+				out.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			BufferedWriter writer = Files.newBufferedWriter(path, charset, StandardOpenOption.APPEND);
-			writer.write(methodType + ";" + jobType + ";" + Integer.toString(k)
-						+ ";" + Integer.toString(bufferSize)
-						+ ";" + Double.toString(elapsedTime)
-						+ ";" + Long.toString(avgFileSize));
-			writer.newLine();
-		} catch (IOException ex) {
-			ex.printStackTrace();
+
 		}
+		return fileNames;
+	}
+
+	/**
+	 * generates random files using OutputStream2
+	 * 
+	 * @param baseFileName
+	 * @param numFiles
+	 * @param maxLength
+	 * @return
+	 */
+	public static ArrayList<String> generateRandomType2(String baseFileName,
+			int numFiles, int maxLength) {
+		ArrayList<String> fileNames = new ArrayList<String>();
+		for (int i = 1; i <= numFiles; i++) {
+			String outputFile = baseFileName + Integer.toString(i) + ".txt";
+			OutputStream2 out = new OutputStream2();
+			try {
+				out.create(outputFile);
+				fileNames.add(outputFile);
+				// for each int in int buffer
+				for (int x = 0; x < maxLength; x++) {
+					// Generate random ( unsorted ) int 0 -1000
+					int next = intGenerator.nextInt(1000);
+					// write int to data output stream
+					out.write(next);
+				}
+				out.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		return fileNames;
+	}
+
+	/**
+	 * generates random files using OutputStream3
+	 * 
+	 * @param baseFileName
+	 * @param numFiles
+	 * @param maxLength
+	 * @param buffer
+	 * @return
+	 */
+	public static ArrayList<String> generateRandomType3(String baseFileName,
+			int numFiles, int maxLength, int buffer) {
+		ArrayList<String> fileNames = new ArrayList<String>();
+		for (int i = 1; i <= numFiles; i++) {
+			String outputFile = baseFileName + Integer.toString(i) + ".txt";
+			OutputStream3 out = new OutputStream3(buffer);
+			try {
+				out.create(outputFile);
+				fileNames.add(outputFile);
+				// for each int in int buffer
+				for (int x = 0; x < maxLength; x++) {
+					// Generate random ( unsorted ) int 0 -1000
+					int next = intGenerator.nextInt(1000);
+					// write int to data output stream
+					out.write(next);
+				}
+				out.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		return fileNames;
+	}
+
+	/**
+	 * generates random files using OutputStream4
+	 * 
+	 * @param baseFileName
+	 * @param numFiles
+	 * @param maxLength
+	 * @param buffer
+	 * @return
+	 */
+	public static ArrayList<String> generateRandomType4(String baseFileName,
+			int numFiles, int maxLength, int b) {
+		ArrayList<String> fileNames = new ArrayList<String>();
+		for (int i = 1; i <= numFiles; i++) {
+			String outputFile = baseFileName + Integer.toString(i) + ".txt";
+			// buffer = maxLength * 4;
+			OutputStream4 out = new OutputStream4(b);
+			try {
+				out.create(outputFile);
+				fileNames.add(outputFile);
+				// for each int in int buffer
+				for (int x = 0; x < maxLength; x++) {
+					// Generate random ( unsorted ) int 0 -1000
+					int next = intGenerator.nextInt(1000);
+					// write int to data output stream
+					out.write(next);
+				}
+				out.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		return fileNames;
 	}
 }
