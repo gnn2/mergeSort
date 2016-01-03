@@ -33,7 +33,7 @@ public class InputStream4 {
 			if(null == rafi){
 				rafi = new RandomAccessFile( new File(fileName),"r");
 				fci = rafi.getChannel();
-				mbbi =fci.map(FileChannel.MapMode.READ_ONLY, 0, Math.min(buffer,fci.size()));
+				mbbi =fci.map(FileChannel.MapMode.READ_ONLY, 0,buffer);
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -48,7 +48,8 @@ public class InputStream4 {
 	}
 	
 	public boolean isEnd() throws IOException{
-		return mbbi.hasRemaining(); 
+	
+		return !mbbi.hasRemaining(); 
 	}
 
 }

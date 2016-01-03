@@ -15,13 +15,14 @@ import java.io.IOException;
  *
  */
 public class InputStream3 {
+	
 	private FileInputStream is;
-	private static DataInputStream ds; 
+	private DataInputStream ds; 
 	private BufferedInputStream bis;
-	private int buffer;
+	private  int buffer;
 	
 	public InputStream3(int bufferSize){
-		buffer = bufferSize; 
+		this.buffer = bufferSize; 
 	}
 	
 	public void open (String fileName) throws FileNotFoundException{
@@ -29,6 +30,7 @@ public class InputStream3 {
 			if(null == is){
 				is = new FileInputStream(new File(fileName) );
 				bis = new BufferedInputStream( is, buffer );
+
 				ds = new DataInputStream(bis);
 			}
 		} catch (Exception e) {
@@ -39,12 +41,18 @@ public class InputStream3 {
 		
 	}
 	
+	
 	public int read_next() throws IOException{
-		return ds.readInt(); 
+		return ds.readInt();
+		
 	}
 	
 	public boolean isEnd() throws IOException{
-		return ds.available() <= 0; 
+		return ds.available() < 4; 
+	}
+	
+	public void close() throws IOException{
+		ds.close();
 	}
 
 }

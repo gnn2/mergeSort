@@ -13,7 +13,7 @@ import java.io.FileInputStream;
 
 public class ProjectInputStream {
 	private FileInputStream is;
-	private static DataInputStream ds; 
+	private DataInputStream ds; 
 	
 	public ProjectInputStream(){
 		
@@ -38,6 +38,6 @@ public class ProjectInputStream {
 	}
 	
 	public boolean isEnd() throws IOException{
-		return ds.available() <= 0; 
+		return ds.available() < 1 ; 
 	}
 }

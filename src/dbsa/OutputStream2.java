@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class OutputStream2 {
 	private FileOutputStream out;
-	private static DataOutputStream ds; 
+	private  DataOutputStream ds; 
 	private BufferedOutputStream bos;
 	public OutputStream2(){
 		
